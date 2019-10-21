@@ -1,0 +1,43 @@
+<div>
+  <div class="bg-primary"
+    style="height: 39px;padding: 10px 10px 10px 5px;margin: 10px 0px 10px 0px;font-size: medium;font-weight: bold;">
+    <p class="bg-primary">
+      {{mode}} User Group
+    </p>
+  </div>
+  <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit(userRoleForm.value)">
+    <fieldset>
+      <div class="form-group col-md-12">
+        <label>Group Name</label>
+        <input id="name" type="text" class="form-control" formControlName="RoleName" />
+        <div *ngIf="formErrors.RoleName" class="alert alert-danger">
+          {{formErrors.RoleName}}
+        </div>
+      </div>
+      <div class="form-group col-md-12">
+        <label>Group Code</label>
+        <input id="name" type="text" class="form-control" formControlName="RoleName" />
+        <div *ngIf="formErrors.RoleName" class="alert alert-danger">
+          {{formErrors.RoleName}}
+        </div>
+      </div>
+      <div class="form-group col-md-12">
+        <label>Group Description</label>
+        <input type="text" class="form-control" formControlName="RoleDescription" />
+        <div *ngIf="formErrors.RoleDescription" class="alert alert-danger">
+          {{formErrors.RoleDescription}}
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <button name="add" type="submit" value="add" class="btn btn-primary" (click)="openDialog()">Add Courses</button>
+      </div>
+
+    </fieldset>
+
+    <div class="form-group col-md-6 col-md-offset-5">
+      <button name="add" type="submit" value="add" class="btn btn-primary"
+        (click)="deleteCourse(course)">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,35 @@
+<div class="container">
+  <div>
+    <div class="col-sm-12" style="text-align:left">
+      <a [routerLink]="['/userRoleDetail',0]" class="glyphicon glyphicon-plus-sign">Add UserGroup</a>
+    </div>
+    <div *ngIf="userRoleCount==0">
+      <div>No Records Exists</div>
+    </div>
+    <table *ngIf="userRoleCount!=0" class="table">
+      <thead>
+        <tr class="row">
+          <th> S.No </th>
+          <th>Role Name</th>
+          <th>Role Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let userRoleData of userGroup;let i=index" class="row">
+          <td> {{i+1}} </td>
+          <td>{{userRoleData.GroupName}}</td>
+          <td>{{userRoleData.GroupDescription}}</td>
+          <td class="col-sm-2">
+
+            <button type="button" class="btn btn-primary" (click)="viewGroupDetails(userRoleData)">View</button>
+
+            <!-- <a class="glyphicon glyphicon-pencil" title="Edit"
+              [routerLink]="['/userRoleDetail',userRoleData.UserRoleId]"></a>
+            <span class="glyphicon glyphicon-remove " title="Delete"
+              (click)="deleteUserRoleDetail(userRoleData.UserRoleId)"></span> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

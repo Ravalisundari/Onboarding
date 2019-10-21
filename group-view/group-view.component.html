@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table">
+    <thead>
+      <tr class="row">
+        <th>Group Id</th>
+        <th>Group Name</th>
+        <th>Group Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row">
+        <td *ngFor="let item of list">{{item}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <thead>
+      <tr class="row">
+        <th>Course Id</th>
+        <th>Course Name</th>
+        <th>URL</th>
+        <th>Description</th>
+        <th>Course Type</th>
+        <th>Document Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courseList" class="row">
+        <td>{{course.Id}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.URL}}</td>
+        <td>{{course.Description}}</td>
+        <td>{{course.CourseType}}</td>
+        <td>{{course.DocumentType}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+</div>
