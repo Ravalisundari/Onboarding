@@ -14,7 +14,7 @@
                 <label>Group Name</label>
                 <input type="text" placeholder="Group Name *" id="name" formControlName="GroupName"
                   class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.GroupName.errors }" />
-                <div *ngIf="submitted && f.GroupName.errors" class="text-danger">
+                <div *ngIf="submitted && f.GroupName.errors" class="invalid-feedback">
                   <div *ngIf="f.GroupName.errors.required">Group Name is required</div>
                 </div>
 
