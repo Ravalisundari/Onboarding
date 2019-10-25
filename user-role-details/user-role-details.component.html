@@ -1,43 +1,95 @@
 <div>
-  <div class="bg-primary"
-    style="height: 39px;padding: 10px 10px 10px 5px;margin: 10px 0px 10px 0px;font-size: medium;font-weight: bold;">
-    <p class="bg-primary">
+  <div class="bg-primary" id="header">
+    <p class="bg-primary" style="background: #623073">
       {{mode}} User Group
     </p>
   </div>
-  <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit(userRoleForm.value)">
-    <fieldset>
-      <div class="form-group col-md-12">
-        <label>Group Name</label>
-        <input id="name" type="text" class="form-control" formControlName="RoleName" />
-        <div *ngIf="formErrors.RoleName" class="alert alert-danger">
-          {{formErrors.RoleName}}
-        </div>
-      </div>
-      <div class="form-group col-md-12">
-        <label>Group Code</label>
-        <input id="name" type="text" class="form-control" formControlName="RoleName" />
-        <div *ngIf="formErrors.RoleName" class="alert alert-danger">
-          {{formErrors.RoleName}}
-        </div>
-      </div>
-      <div class="form-group col-md-12">
-        <label>Group Description</label>
-        <input type="text" class="form-control" formControlName="RoleDescription" />
-        <div *ngIf="formErrors.RoleDescription" class="alert alert-danger">
-          {{formErrors.RoleDescription}}
-        </div>
-      </div>
+  <div>
+    <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3 offset4">
+            <div class="" style="display:inline-block; width:100%;">
+              <div class="form-group col-md-6 col-sm-12">
+                <label>Group Name</label>
+                <input type="text" placeholder="Group Name *" id="name" formControlName="GroupName"
+                  class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.GroupName.errors }" />
+                <div *ngIf="submitted && f.GroupName.errors" class="text-danger">
+                  <div *ngIf="f.GroupName.errors.required">Group Name is required</div>
+                </div>
 
-      <div class="form-group col-md-4">
-        <button name="add" type="submit" value="add" class="btn btn-primary" (click)="openDialog()">Add Courses</button>
+              </div>
+              <div class="form-group col-md-6 col-sm-12">
+                <label>Group Code</label>
+                <input type="text" placeholder="Group Code *" id="code" formControlName="GroupCode"
+                  class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.GroupCode.errors }" />
+                <div *ngIf="submitted && f.GroupCode.errors" class="invalid-feedback">
+                  <div *ngIf="f.GroupCode.errors.required">Group Code is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3 offset4">
+            <div class="form-group col-md-12 col-sm-12">
+              <label>Group Description</label>
+              <input type="text" placeholder="Group Description *" id="description" formControlName="GroupDescription"
+                class="form-control mb-4" [ngClass]="{ 'is-invalid': submitted && f.GroupDescription.errors }" />
+              <div *ngIf="submitted && f.GroupDescription.errors" class="invalid-feedback">
+                <div *ngIf="f.GroupDescription.errors.required">Group Description is required</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3 offset4">
+            <div class="form-group col-md-4">
+              <button name="add" type="submit" value="add" class="btn btn-primary"
+                style="background: #E2542F; border: #E2542F" (click)="openDialog()">Add Courses</button>
+            </div>
+          </div>
+        </div>
+
+      </fieldset>
+
+      <div class="form-group wrapper">
+        <button name="add" type="submit" value="add" class="btn btn-primary offset4">Submit</button>
       </div>
+    </form>
+  </div>
 
-    </fieldset>
+  <div *ngIf="courseCount!=0">
+    <div class="responsive_table">
+      <table class="table">
+        <thead>
+          <tr class="row">
+            <th>S.No</th>
+            <th>Course Name</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>Course Type</th>
+            <th>Document Type</th>
+            <th></th>
 
-    <div class="form-group col-md-6 col-md-offset-5">
-      <button name="add" type="submit" value="add" class="btn btn-primary"
-        (click)="deleteCourse(course)">Submit</button>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let courseData of coursesAdded;let i=index" class="row">
+            <td>{{i+1}}</td>
+            <td>{{courseData.Name}}</td>
+            <td>{{courseData.URL}}</td>
+            <td>{{courseData.Description}}</td>
+            <td>{{courseData.CourseType}}</td>
+            <td>{{courseData.DocumentType}}</td>
+            <td><span class="glyphicon glyphicon-remove " title="Delete" (click)="deleteCourse(courseData)"></span></td>
+
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </form>
+  </div>
+
+
 </div>

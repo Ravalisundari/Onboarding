@@ -10,7 +10,7 @@ import { UserGroupService } from '../../service/user-group.service';
 import { ICourse } from '../../model/course';
 import { ConfirmationDialogsService } from '../../shared/confirmationDialog.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AddCoursesDialogComponent } from '../add-courses-dialog/add-courses-dialog.component';
+import { AddCourseDialogComponent } from '../add-course-dialog/add-course-dialog.component';
 
 @Component({
   selector: 'app-user-role-details',
@@ -23,9 +23,10 @@ export class UserRoleDetailsComponent implements OnInit {
   userGroupObject: IUserGroup;
   userRoleId: string;
   courseCount: number;
-  coursesAdded: ICourse[];
+  coursesAdded: ICourse[] = [];
   mode: string;
   isAdmin: boolean = false;
+  submitted = false;
 
   constructor(private fb: FormBuilder, private associateDetailService: AssociateDetailService,
     private route: ActivatedRoute, private router: Router,
@@ -38,7 +39,6 @@ export class UserRoleDetailsComponent implements OnInit {
     this.route.params.subscribe(params => { this.userRoleId = params["id"] });
     this.checkUserRole();
     this.buildForm();
-    this.coursesAdded = [];
     this.courseCount = this.coursesAdded.length;
     if (this.userRoleId == "0" && this.userRoleId != undefined) {
       this.mode = "Add";
@@ -54,23 +54,40 @@ export class UserRoleDetailsComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddCoursesDialogComponent, {
+    const dialogRef = this.dialog.open(AddCourseDialogComponent, {
       width: 'auto',
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        result.forEach(e => {
+          this.coursesAdded.push(e);
+        });
+        this.courseCount = this.coursesAdded.length;
+      }
     });
+  }
+
+  deleteCourse(courseData: ICourse): void {
+    const index: number = this.coursesAdded.indexOf(courseData);
+    if (index !== -1) {
+      this.coursesAdded.splice(index, 1);
+    }
+    this.courseCount = this.coursesAdded.length;
   }
 
   private buildForm() {
     this.userRoleForm = this.fb.group({
-      RoleName: ['', Validators.required],
-      RoleDescription: ['', Validators.required],
+      GroupName: ['', [Validators.required]],
+      GroupCode: ['', [Validators.required]],
+      GroupDescription: ['', [Validators.required]],
     });
 
     this.userRoleForm.valueChanges.subscribe(data => this.onValueChanged(data));
-    this.onValueChanged();
+    //this.onValueChanged();
   }
+
+  get f() { return this.userRoleForm.controls; }
 
   private checkUserRole() {
     this.userRoleService.get().subscribe(userRole => {
@@ -109,31 +126,54 @@ export class UserRoleDetailsComponent implements OnInit {
     }
   }
 
-  onSubmit(formData: any) {
-    if (this.mode == "Update") {
-      this.userRoleService.put(formData)
-        .subscribe(modal => {
-          this.alertService.success("User Role Details Updated Successfully.");
-        });
+  onSubmit() {
+
+    this.submitted = true;
+    if (this.userRoleForm.invalid) {
+      return;
     }
-    else {
-      this.userRoleService.post(formData)
-        .subscribe(modal => {
-          this.alertService.success("User Role Details Added Successfully.");
-        });
-    }
+
+    // if (this.mode == "Update") {
+    //   this.userRoleService.put(formData)
+    //     .subscribe(modal => {
+    //       this.alertService.success("User Group Details Updated Successfully.");
+    //     });
+    // }
+    // else {
+    //   this.userRoleService.post(formData)
+    //     .subscribe(modal => {
+    //       this.alertService.success("User Group Details Added Successfully.");
+    //     });
+    // }
+
+    // const form = this.userRoleForm;
+    // for (const field in this.formErrors) {
+    //   this.formErrors[field] = "";
+    //   const control = form.get(field);
+    //   if (control && !control.valid) {
+    //     const messages = this.validationMessages[field];
+    //     for (const key in control.errors) {
+    //       this.formErrors[field] += messages[key] + ' ';
+    //     }
+    //   }
+    // }
+
   }
 
   formErrors = {
-    'RoleName': '',
-    'RoleDescription': '',
+    'GroupName': '',
+    'GroupCode': '',
+    'GroupDescription': '',
   };
   validationMessages = {
-    'RoleName': {
-      'required': 'Role name is required.'
+    'GroupName': {
+      'required': 'Group name is required.'
     },
-    'RoleDescription': {
-      'required': 'Role description is required.'
+    'GroupCode': {
+      'required': 'Group code is required.'
+    },
+    'GroupDescription': {
+      'required': 'Group description is required.'
     },
   };
 }

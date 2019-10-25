@@ -1,0 +1,34 @@
+#header{
+    background: #623073;
+    height: 39px;
+    padding: 10px 10px 10px 5px;
+    margin: 10px 0px 10px 0px;
+    font-size: medium;
+    font-weight: bold;
+}
+
+#body{
+    align-content: center;
+    margin: 10px 350px;
+}
+
+    @media(max-width: 800px) {
+        .responsive_table {
+            overflow-x: auto !important;
+            overflow-y: hidden
+        }
+      
+        .mat-table {
+            min-width:800px;
+        }
+        }
+
+        .wrapper {
+            text-align: center;
+        }
+
+.invalid-feedback {
+    display: block;
+}
+        
+        

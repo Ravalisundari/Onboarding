@@ -5,43 +5,46 @@
   </button>
 </div>
 <div class="modal-body">
-  <table class="table">
-    <thead>
-      <tr class="row">
-        <th>Group Id</th>
-        <th>Group Name</th>
-        <th>Group Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="row">
-        <td *ngFor="let item of list">{{item}}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="table">
-    <thead>
-      <tr class="row">
-        <th>Course Id</th>
-        <th>Course Name</th>
-        <th>URL</th>
-        <th>Description</th>
-        <th>Course Type</th>
-        <th>Document Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let course of courseList" class="row">
-        <td>{{course.Id}}</td>
-        <td>{{course.Name}}</td>
-        <td>{{course.URL}}</td>
-        <td>{{course.Description}}</td>
-        <td>{{course.CourseType}}</td>
-        <td>{{course.DocumentType}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr class="row">
+          <th scope="col">Group Id</th>
+          <th scope="col">Group Name</th>
+          <th scope="col">Group Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row" scope="row">
+          <td *ngFor="let item of list">{{item}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr class="row">
+          <th scope="col">Course Id</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">URL</th>
+          <th scope="col">Description</th>
+          <th scope="col">Course Type</th>
+          <th scope="col">Document Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courseList" class="row" scope="row">
+          <td>{{course.Id}}</td>
+          <td>{{course.Name}}</td>
+          <td>{{course.URL}}</td>
+          <td>{{course.Description}}</td>
+          <td>{{course.CourseType}}</td>
+          <td>{{course.DocumentType}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>

@@ -1,35 +1,31 @@
 <div class="container">
-  <div>
+  <div class="table-responsive" style="margin: 10px 30px 10px 0px">
     <div class="col-sm-12" style="text-align:left">
       <a [routerLink]="['/userRoleDetail',0]" class="glyphicon glyphicon-plus-sign">Add UserGroup</a>
     </div>
     <div *ngIf="userRoleCount==0">
       <div>No Records Exists</div>
     </div>
-    <table *ngIf="userRoleCount!=0" class="table">
-      <thead>
-        <tr class="row">
-          <th> S.No </th>
-          <th>Role Name</th>
-          <th>Role Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let userRoleData of userGroup;let i=index" class="row">
-          <td> {{i+1}} </td>
-          <td>{{userRoleData.GroupName}}</td>
-          <td>{{userRoleData.GroupDescription}}</td>
-          <td class="col-sm-2">
-
-            <button type="button" class="btn btn-primary" (click)="viewGroupDetails(userRoleData)">View</button>
-
-            <!-- <a class="glyphicon glyphicon-pencil" title="Edit"
-              [routerLink]="['/userRoleDetail',userRoleData.UserRoleId]"></a>
-            <span class="glyphicon glyphicon-remove " title="Delete"
-              (click)="deleteUserRoleDetail(userRoleData.UserRoleId)"></span> -->
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="userRoleCount!=0">
+      <table class="table">
+        <thead>
+          <tr class="row">
+            <th scope="col">S.No</th>
+            <th scope="col">Role Name</th>
+            <th scope="col">Role Description</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userRoleData of userGroup;let i=index" class="row">
+            <td> {{i+1}} </td>
+            <td>{{userRoleData.GroupName}}</td>
+            <td>{{userRoleData.GroupDescription}}</td>
+            <td class="col-sm-2"><span class="glyphicon glyphicon-eye-open " title="View"
+                (click)="viewGroupDetails(userRoleData)"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

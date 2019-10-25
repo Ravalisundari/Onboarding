@@ -1,0 +1,55 @@
+<div>
+  <form [formGroup]="courseForm" (ngSubmit)="onSearch(courseForm.value)" #myform="ngForm">
+    <div class="form-group col-md-6 col-sm-4"
+      style="height: 50px;padding: 10px 10px 10px 5px;margin: 20px 0px 15px 0px;">
+      <label>Course Description</label>
+      <input type="text" class="form-control" formControlName="description">
+    </div>
+    <div class="form-group col-md-6 col-sm-4"
+      style="height: 39px;padding: 10px 10px 10px 5px;margin: 20px 0px 15px 0px;">
+      <label required>Course Type</label>
+      <select class="form-control" formControlName="courseName" required>
+        <option [ngValue]="null">Select Course Type</option>
+        <option *ngFor="let course of courseType" [value]="course">
+          {{course}}
+        </option>
+      </select>
+      <p style="color:red" *ngIf="courseForm.get('courseName').hasError('required') && myform.submitted">CourseName is
+        required</p>
+    </div>
+    <div class="form-group  col-md-6 col-sm-6 col-md-offset-5" style="justify-content: center;margin-top:35px">
+      <button name="add" type="submit" value="add" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <div *ngIf="courseLength!=0">
+    <div class="responsive_table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.no</th>
+            <th scope="col"> Title </th>
+            <th scope="col"> URL </th>
+            <th scope="col"> Description </th>
+            <th scope="col"> Document Type </th>
+            <th scope="col"> Course type </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let courseData of courses;let i=index" scope="row">
+            <td>{{i+1}}</td>
+            <td>{{courseData.Name}}</td>
+            <td>{{courseData.URL}}</td>
+            <td>{{courseData.Description}}</td>
+            <td>{{courseData.DocumentType}}</td>
+            <td>{{courseData.CourseType}}</td>
+            <td><input type="checkbox" (change)="toggleVisibility($event,courseData)" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="form-group col-md-6 col-sm-6 col-md-offset-5" style="justify-content: center;margin-top:35px">
+      <button name="add" type="submit" value="add" class="btn btn-danger" (click)="onAddSubmit()">Submit</button>
+    </div>
+  </div>
+</div>
