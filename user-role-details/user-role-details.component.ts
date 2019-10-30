@@ -113,17 +113,17 @@ export class UserRoleDetailsComponent implements OnInit {
     if (!this.userRoleForm) {
       return;
     }
-    const form = this.userRoleForm;
-    for (const field in this.formErrors) {
-      this.formErrors[field] = "";
-      const control = form.get(field);
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
-    }
+    // const form = this.userRoleForm;
+    // for (const field in this.formErrors) {
+    //   this.formErrors[field] = "";
+    //   const control = form.get(field);
+    //   if (control && control.dirty && !control.valid) {
+    //     const messages = this.validationMessages[field];
+    //     for (const key in control.errors) {
+    //       this.formErrors[field] += messages[key] + ' ';
+    //     }
+    //   }
+    // }
   }
 
   onSubmit() {
@@ -160,20 +160,20 @@ export class UserRoleDetailsComponent implements OnInit {
 
   }
 
-  formErrors = {
-    'GroupName': '',
-    'GroupCode': '',
-    'GroupDescription': '',
-  };
-  validationMessages = {
-    'GroupName': {
-      'required': 'Group name is required.'
-    },
-    'GroupCode': {
-      'required': 'Group code is required.'
-    },
-    'GroupDescription': {
-      'required': 'Group description is required.'
-    },
-  };
+  // formErrors = {
+  //   'GroupName': '',
+  //   'GroupCode': '',
+  //   'GroupDescription': '',
+  // };
+  // validationMessages = {
+  //   'GroupName': {
+  //     'required': 'Group name is required.'
+  //   },
+  //   'GroupCode': {
+  //     'required': 'Group code is required.'
+  //   },
+  //   'GroupDescription': {
+  //     'required': 'Group description is required.'
+  //   },
+  // };
 }

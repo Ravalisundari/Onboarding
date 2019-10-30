@@ -20,6 +20,7 @@ export class AddCourseDialogComponent implements OnInit {
   marked: false;
   selectedCourses: ICourse[] = [];
   courseLength: number = 0;
+  submitted = false;
   //@Output() submitClicked = new EventEmitter<any>();
   courseType: Array<string> = ['RLG', 'common', 'Technology', 'UI'];
   documentType: Array<string> = ['txt', 'pdf', 'xml', 'json'];
@@ -31,26 +32,31 @@ export class AddCourseDialogComponent implements OnInit {
   ngOnInit() {
 
     this.courseForm = this.formBuilder.group({
-      description: [null, Validators.required],
-      courseName: [null, Validators.required]
+      description: ['', []],
+      courseName: ['', [Validators.required]]
     })
   }
 
-
+  get f() { return this.courseForm.controls; }
   /*onSubmit(formData: any) {
     this.submitClicked.emit(formData);
   }*/
 
   onSearch(formData: any) {
+    this.submitted = true;
+    // if (this.courseForm.invalid) {
+    //   return;
+    // }
+
     this.courses = [];
     this.courseDetailService.getCourses().subscribe(model => {
       this.courseDetail = model
     });
-    if (formData.description != null) {
-      this.courses = this.courseDetail.filter(obj => obj.CourseType == formData.courseName && obj.Description == formData.description);
+    if (formData.description == null || formData.description == "") {
+      this.courses = this.courseDetail.filter(obj => obj.CourseType == formData.courseName);
     }
     else {
-      this.courses = this.courseDetail.filter(obj => obj.CourseType == formData.courseName);
+      this.courses = this.courseDetail.filter(obj => obj.CourseType == formData.courseName && obj.Description == formData.description);
     }
     this.courseLength = this.courses.length;
   }

@@ -5,7 +5,7 @@
     </p>
   </div>
   <div>
-    <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="userRoleForm">
       <fieldset>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3 offset4">
@@ -46,50 +46,51 @@
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3 offset4">
             <div class="form-group col-md-4">
-              <button name="add" type="submit" value="add" class="btn btn-primary"
-                style="background: #E2542F; border: #E2542F" (click)="openDialog()">Add Courses</button>
+              <button name="add" value="add" class="btn btn-primary" style="background: #E2542F; border: #E2542F"
+                (click)="openDialog()">Add Courses</button>
             </div>
           </div>
         </div>
 
       </fieldset>
 
+      <div *ngIf="courseCount!=0">
+        <div class="responsive_table">
+          <table class="table">
+            <thead>
+              <tr class="row">
+                <th>S.No</th>
+                <th>Course Name</th>
+                <th>URL</th>
+                <th>Description</th>
+                <th>Course Type</th>
+                <th>Document Type</th>
+                <th></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let courseData of coursesAdded;let i=index" class="row">
+                <td>{{i+1}}</td>
+                <td>{{courseData.Name}}</td>
+                <td>{{courseData.URL}}</td>
+                <td>{{courseData.Description}}</td>
+                <td>{{courseData.CourseType}}</td>
+                <td>{{courseData.DocumentType}}</td>
+                <td><span class="glyphicon glyphicon-remove " title="Delete" (click)="deleteCourse(courseData)"></span>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
       <div class="form-group wrapper">
-        <button name="add" type="submit" value="add" class="btn btn-primary offset4">Submit</button>
+        <button name="add" type="submit" value="add" class="btn btn-primary offset4"
+          (click)="onSubmit()">Submit</button>
       </div>
     </form>
   </div>
-
-  <div *ngIf="courseCount!=0">
-    <div class="responsive_table">
-      <table class="table">
-        <thead>
-          <tr class="row">
-            <th>S.No</th>
-            <th>Course Name</th>
-            <th>URL</th>
-            <th>Description</th>
-            <th>Course Type</th>
-            <th>Document Type</th>
-            <th></th>
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let courseData of coursesAdded;let i=index" class="row">
-            <td>{{i+1}}</td>
-            <td>{{courseData.Name}}</td>
-            <td>{{courseData.URL}}</td>
-            <td>{{courseData.Description}}</td>
-            <td>{{courseData.CourseType}}</td>
-            <td>{{courseData.DocumentType}}</td>
-            <td><span class="glyphicon glyphicon-remove " title="Delete" (click)="deleteCourse(courseData)"></span></td>
-
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
 
 </div>

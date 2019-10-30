@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="courseForm" (ngSubmit)="onSearch(courseForm.value)" #myform="ngForm">
+  <form [formGroup]="courseForm" #myform="ngForm">
     <div class="form-group col-md-6 col-sm-4"
       style="height: 50px;padding: 10px 10px 10px 5px;margin: 20px 0px 15px 0px;">
       <label>Course Description</label>
@@ -8,17 +8,28 @@
     <div class="form-group col-md-6 col-sm-4"
       style="height: 39px;padding: 10px 10px 10px 5px;margin: 20px 0px 15px 0px;">
       <label required>Course Type</label>
-      <select class="form-control" formControlName="courseName" required>
+      <!-- <select class="form-control" formControlName="courseName" required>
         <option [ngValue]="null">Select Course Type</option>
         <option *ngFor="let course of courseType" [value]="course">
           {{course}}
         </option>
+      </select> -->
+
+      <select class="form-control" placeholder="Group Name *" formControlName="courseName"
+        [ngClass]="{ 'is-invalid': submitted && f.courseName.errors }">
+        <option value="" disabled selected>Select Course Type</option>
+        <option *ngFor="let course of courseType" [value]="course">
+          {{course}}
+        </option>
       </select>
-      <p style="color:red" *ngIf="courseForm.get('courseName').hasError('required') && myform.submitted">CourseName is
-        required</p>
+      <div *ngIf="submitted && f.courseName.errors" class="invalid-feedback">
+        <div *ngIf="f.courseName.errors.required">Course Type is required</div>
+      </div>
+
     </div>
     <div class="form-group  col-md-6 col-sm-6 col-md-offset-5" style="justify-content: center;margin-top:35px">
-      <button name="add" type="submit" value="add" class="btn btn-primary">Search</button>
+      <button name="add" type="submit" value="add" class="btn btn-primary"
+        (click)="onSearch(courseForm.value)">Search</button>
     </div>
   </form>
   <div *ngIf="courseLength!=0">
